@@ -15,7 +15,8 @@
 
     --dark-gray: hsla(229, 12%, 17%, var(--opacity));
     --medium-gray: hsla(0, 0%, 32%, var(--opacity));
-    --light-gray: hsla(0, 0%, 56%, var(--opacity));
+    --light-gray: #807E7E;
+    /* --light-gray: hsla(0, 0%, 56%, var(--opacity)); */
     --the-yellow: hsla(55, 92%, 58%, var(--opacity));
     --the-white: hsla(240, 14%, 97%, var(--opacity));
     --the-turquoise: hsla(168, 47%, 50%, var(--opacity));
@@ -41,17 +42,18 @@
     /* SQUARE */
     --c-correct: var(--the-turquoise);
     --c-present: var(--the-yellow);
-    --c-absent:var(--light-gray)
+    --c-absent:var(--light-gray);
     
-    --sq-side: 50px;
-    --sq-border: 3px solid var(--medium-gray);
+    --sq-side: 50px; /*TODO -- set dynamically*/
+    --sq-border: 2px solid var(--medium-gray);
     
     /* KEYBOARD */
-    --c-keyboard: var(--light-gray);
     --c-keyboard-absent: var(--dark-gray);
-    --key-width: 40px;
-    --key-height: calc(var(--key-w)*1.25);
-    --key-sp-w: calc(var(--key-w)*1.5);
+    --keyboard-gap: calc(var(--key-width)*0.2);
+    /* --keyboard-width: 70vw; */
+    --key-width: 6vw; /* is 10% of keyboard width -- not considering the gaps */
+    --key-height: calc(var(--key-width)*1.25);
+    --key-sp-w: calc(var(--key-width)*1.5);
 
 
 
@@ -66,12 +68,30 @@
     /* TODO: colors are darkened a bit */
     --c-bg-main:  var(--dark-gray);
     --c-text-main: var(--the-white);
+    --c-key-bg: var(--light-gray);
+    --c-square-bg: var(--dark-gray);
+
+    --c-keyboard: var(--light-gray);
+      /* TODO -- edit to darken in dark mode*/
+    --c-correct: var(--the-turquoise);
+    --c-present: var(--the-yellow);
+    --c-absent:var(--light-gray);
+
+    
+
 }
 
 .lightmode {
     /* SEE ORIGINAL WORDLE FOR REFERENCE */
     --c-bg-main:  var(--the-white);
     --c-text-main: var(--dark-gray);
+    --c-key-bg: var(--light-gray);
+    
+    --c-keyboard: var(--light-gray);
+    --c-correct: var(--the-turquoise);
+    --c-present: var(--the-yellow);
+    --c-absent:var(--light-gray);
+
 }
 
 /* =============================================================================
@@ -105,6 +125,9 @@ main#app-main {
 a, button {
     text-decoration: none;
     cursor: pointer;
+    border: none;
+    font-family: var(--font-main);
+    padding: 0;
 }
 
 h1:not(.logo) {
@@ -132,15 +155,6 @@ header.main, .game-board, .keyboard, .modal-box {
      width: 100%;
 }
     
-
-
- /* ============================================================================
- | GAME BOARD
- ============================================================================ */
-.game-board {
-
-}
-
 
 
 /* =============================================================================
@@ -203,6 +217,33 @@ header.main, .game-board, .keyboard, .modal-box {
 
 }
 
+
+/* =============================================================================
+| GAME
+============================================================================= */
+.game-board {
+    /* display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center; */
+    display:grid;
+    gap: calc(var(--sq-side)*0.1);
+}
+
+.game-row {
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--sq-side)*0.1);
+}
+
+.game-square {
+    border: var(--sq-border);
+    height: var(--sq-side);
+    width: var(--sq-side);
+}
+
+
+
 /* =============================================================================
 | KEYBOARD
 ============================================================================= */
@@ -211,26 +252,34 @@ header.main, .game-board, .keyboard, .modal-box {
     /* height: has a fixed height -- its words that resize */
     /* width: also fixed -- based on mobile - its blank area that grows */
     border: var(--testing-border);
-    min-width: 60vw;
+    /* min-width: 60vw; */
+    height: 30vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: var(--gap-main);
+    justify-content: flex-end;
+    gap: var(--keyboard-gap);
 
 }
 
 .keyboard-row {
-    border: var(--testing-border);
+    /* border: var(--testing-border); */
+    display: flex;
+    gap: var(--keyboard-gap);
 }
 
-.one-key {
+.keyboard-row > button {
+    text-transform: uppercase;
+    color: var(--c-text-main);
+    font-weight: bold;
+    padding-top: 3px;
     width: var(--key-width);
     height: var(--key-height);
+    border-radius: calc(var(--key-width)*0.2);
     background-color: var(--c-keyboard);
 }
 
-.one-key.sp {
+.keyboard-row > button.sp {
     width: var(--key-sp-w);
 }
 
