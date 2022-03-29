@@ -1,0 +1,123 @@
+/* CSS HEX
+--granite-gray: #666666ff;
+--titanium-yellow: #f7e733ff;
+--cultured: #f7f7f9ff;
+--raisin-black: #272932ff;
+--keppel: #44bba4ff; */
+
+/* =============================================================================
+| CSS VARIABLES
+============================================================================= */
+
+:root {
+    /* CSS HSL palette */
+    --opacity: 1;
+
+    --dark-gray: hsla(229, 12%, 17%, var(--opacity));
+    --medium-gray: hsla(0, 0%, 32%, --opacity);
+    --light-gray: hsla(0, 0%, 56%, var(--opacity));
+    --the-yellow: hsla(55, 92%, 58%, var(--opacity));
+    --the-white: hsla(240, 14%, 97%, var(--opacity));
+    --the-turquoise: hsla(168, 47%, 50%, var(--opacity));
+
+
+    /* MAIN VARS */
+    --font-main: font-family: 'Manjari', sans-serif;  
+    --c-main-bg:  var(--dark-gray);
+    --c-text-main: var(--the-white);
+    --border-thin: 1px solid var(--medium-gray);
+    /* TODO: dark mode and */
+
+    /* SQUARE */
+    --c-correct: var(--the-turquoise);
+    --c-present: var(--the-yellow);
+    --c-absent:var(--light-gray)
+    
+    --sq-side: 50px;
+    --sq-border: 3px solid var(--medium-gray);
+    
+    /* KEYBOARD */
+    --c-keyboard: var(--light-gray);
+    --c-keyboard-absent: var(--dark-gray);
+    --key-width: 40px;
+    --key-height: calc(var(--key-w)*1.25);
+    --key-sp-w: calc(var(--key-w)*1.5);
+
+
+
+}
+
+/* =============================================================================
+| COLOR MODES
+============================================================================= */
+.darkmode {
+    /* SEE ORIGINAL WORDLE FOR REFERENCE */
+    /* TODO: colors are darkened a bit */
+}
+
+.lightmode {
+    /* SEE ORIGINAL WORDLE FOR REFERENCE */
+}
+
+/* =============================================================================
+| THE VERY BASICS
+============================================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-color: var(--c-main-bg);
+    font-family: var(--font-main);
+}
+
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* =============================================================================
+| OUTER STRUCTURE
+============================================================================= */
+/* The one in index.html: */
+ main#main {
+     width: 100%;
+     min-height: 100vh;
+ }
+
+ header.main {
+    border-bottom: var(--border-thin);
+ }
+
+
+
+
+/* =============================================================================
+| BY INNER COMPONENT/THING
+============================================================================= */
+
+/* ====== KEYBOARD ====================================================*/
+.keyboard {
+    /* height: has a fixed height -- its words that resize */
+    /* width: also fixed -- based on mobile - its blank area that grows */
+
+    display: flex;
+
+}
+
+.one-key {
+    width: var(--key-width);
+    height: var(--key-height);
+    background-color: var(--c-keyboard);
+}
+
+.one-key.sp {
+    width: var(--key-sp-w);
+}
+
+
+
+
