@@ -14,7 +14,7 @@
     --opacity: 1;
 
     --dark-gray: hsla(229, 12%, 17%, var(--opacity));
-    --medium-gray: hsla(0, 0%, 32%, --opacity);
+    --medium-gray: hsla(0, 0%, 32%, var(--opacity));
     --light-gray: hsla(0, 0%, 56%, var(--opacity));
     --the-yellow: hsla(55, 92%, 58%, var(--opacity));
     --the-white: hsla(240, 14%, 97%, var(--opacity));
@@ -22,11 +22,21 @@
 
 
     /* MAIN VARS */
-    --font-main: font-family: 'Manjari', sans-serif;  
-    --c-main-bg:  var(--dark-gray);
-    --c-text-main: var(--the-white);
+    --font-main: 'Manjari', sans-serif;  
+    --font-fancy: 'Bree Serif', serif;
     --border-thin: 1px solid var(--medium-gray);
+    /* --c-bg-main:  var(--dark-gray); */
+    /* --c-text-main: var(--the-white); */
+    --width-content-main: 70vw;
     /* TODO: dark mode and */
+
+    --padding-main: 16px;
+    --gap-main: 3vh;
+
+    /* *TESTING VARS */
+    --testing-border: 2px solid hotpink;
+
+
 
     /* SQUARE */
     --c-correct: var(--the-turquoise);
@@ -50,13 +60,18 @@
 /* =============================================================================
 | COLOR MODES
 ============================================================================= */
+/* darkmode and lightmode are applied to main#app-main */
 .darkmode {
     /* SEE ORIGINAL WORDLE FOR REFERENCE */
     /* TODO: colors are darkened a bit */
+    --c-bg-main:  var(--dark-gray);
+    --c-text-main: var(--the-white);
 }
 
 .lightmode {
     /* SEE ORIGINAL WORDLE FOR REFERENCE */
+    --c-bg-main:  var(--the-white);
+    --c-text-main: var(--dark-gray);
 }
 
 /* =============================================================================
@@ -69,14 +84,44 @@
 }
 
 body {
-    background-color: var(--c-main-bg);
-    font-family: var(--font-main);
+    /* body here is main#app-main */
 }
 
+main#app-main {
+    /*  to which where dark and light modes are applied */
+    background-color: var(--c-bg-main);
+    font-family: var(--font-main);
+    color: var(--c-text-main);
+    /* --- Regular styles --- */
+    /* border: var(--testing-border); */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-main);
+ }
 
-a {
+a, button {
     text-decoration: none;
     cursor: pointer;
+}
+
+h1:not(.logo) {
+    font-family: var(--font-fancy);
+    margin-bottom: var(--padding-main);
+}
+
+h2, h3 {
+    font-family: var(--font-main);
+    font-weight: 400;
+}
+
+/* =============================================================================
+| GENERAL SPACING
+============================================================================= */
+header.main, .game-board, .keyboard, .modal-box {
+    padding: var(--padding-main);
 }
 
 /* =============================================================================
@@ -85,13 +130,16 @@ a {
 /* The one in index.html: */
  main#main {
      width: 100%;
-     min-height: 100vh;
- }
+}
+    
 
- header.main {
-    border-bottom: var(--border-thin);
- }
 
+ /* ============================================================================
+ | GAME BOARD
+ ============================================================================ */
+.game-board {
+
+}
 
 
 
@@ -99,13 +147,81 @@ a {
 | BY INNER COMPONENT/THING
 ============================================================================= */
 
-/* ====== KEYBOARD ====================================================*/
+/* ====== HEADER ====================================================*/
+ header.main {
+     width: 100%;
+    border-bottom: var(--border-thin);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+ }
+
+.nav-left {}
+.nav-right {}
+
+
+.nav-btn {}
+.icon {}
+
+.logo {
+    font-family: var(--font-fancy);
+    letter-spacing: 0.8px;
+}
+
+
+/* ====== MODAL ====================================================*/
+.modal-bg {
+    --opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--c-bg-main);
+    z-index: 800;
+}
+
+.modal-box {
+    width: var(--width-content-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: var(--c-bg-main);
+    border: var(--testing-border);
+    z-index: 810;
+
+}
+.btn-x {
+    position: absolute;
+    top: var(--padding-main);
+    right: var(--padding-main);
+
+}
+
+/* =============================================================================
+| KEYBOARD
+============================================================================= */
+
 .keyboard {
     /* height: has a fixed height -- its words that resize */
     /* width: also fixed -- based on mobile - its blank area that grows */
-
+    border: var(--testing-border);
+    min-width: 60vw;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--gap-main);
 
+}
+
+.keyboard-row {
+    border: var(--testing-border);
 }
 
 .one-key {
