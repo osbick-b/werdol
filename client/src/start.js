@@ -2,14 +2,36 @@ import ReactDOM from "react-dom";
 
 import App from "./app";
 
-// // Font Awesome import and create Library:
-// // https://www.fontawesomecheatsheet.com/font-awesome-react/
-// import { library } from "@fortawesome/fontawesome-svg-core";
-// import { fab } from "@fortawesome/free-brands-svg-icons";
-// import { faCheckSquare, faTable } from "@fortawesome/free-solid-svg-icons";
+// =============================================================================
+// Start.js -- Redux Setup
+// =============================================================================
 
-// library.add(fab, faCheckSquare, faTable);
+// 1 -- import all the stuff from redux:
+import { createStore, applyMiddleware } from "redux";
+
+import * as immutableState from "redux-immutable-state-invariant";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+// 1a -- Provider is the one you will wrapp your App into to pass it the store
+import { Provider } from "react-redux";
+
+// 1b -- import your RootReducer (here called just "reducer") from reducer.js
+import reducer from "./redux/reducer"; // its called rootReducer in the orig reducer file. you can import it with another name bc we exported it default
+
+
+// 2 -- Create the store
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(immutableState.default()))
+);
+
 // ----------------------------------------------------
-ReactDOM.render(<App />, document.querySelector("main"));
+// 3 -- Wrap App in the Provider and pass to it the store that you created
 
-
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.querySelector("main")
+);
