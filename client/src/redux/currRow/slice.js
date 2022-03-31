@@ -1,11 +1,11 @@
 export function CurrRowReducer(currRow = [], action) {
     switch (action.type) {
-                    case "LetterInAttemp/add": {
+                    case "LetterInRow/add": {
                         currRow = [...currRow, action.payload.keyPressed];
                         break;
                     }
-                    case "LetterInAttemp/deleted": {
-                        // console.log("redux -- LetterInAttemp/delete");
+                    case "LetterInRow/deleted": {
+                        // console.log("redux -- LetterInRow/delete");
                         const att = [...currRow];
                         // console.log(`SLI> att`, att);
                         att.pop();
@@ -25,16 +25,16 @@ export function CurrRowReducer(currRow = [], action) {
 // Actions
 // =============================================================================
 
-export function addLetterInAttemp(keyPressed) {
+export function addLetterInRow(keyPressed) {
     return {
-        type: "LetterInAttemp/add",
+        type: "LetterInRow/add",
         payload: { keyPressed },
     };
 }
 
-export function deleteLetterInAttemp(data) {
+export function deleteLetterInRow(data) {
     return {
-        type: "LetterInAttemp/deleted",
+        type: "LetterInRow/deleted",
         payload: { data },
     };
 }

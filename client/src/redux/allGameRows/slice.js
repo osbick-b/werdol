@@ -9,7 +9,7 @@ export function AllGameRowsReducer(
 ) {
     switch (action.type) {
                     case "allGameRows/fill": {
-                        const oneRow = Array(action.payload.wordLength).fill(null);
+                        const oneRow = Array(action.payload.wordLength).fill("q"); //!null
                         allGameRows = Array(action.payload.wordLength + 1).fill(oneRow);
                         break;
                     }
@@ -50,3 +50,5 @@ export function addSubmittedRow(oneAttemp, i) {
         payload: { data: oneAttemp, index:i }, //!
     };
 }
+
+// === currRow modifiers =========================================

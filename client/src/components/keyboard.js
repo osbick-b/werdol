@@ -6,8 +6,8 @@ const fln = "keyboard.js";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    addLetterInAttemp,
-    deleteLetterInAttemp,
+    addLetterInRow,
+    deleteLetterInRow,
 } from "../redux/currRow/slice";
 
 
@@ -19,12 +19,6 @@ export function Keyboard() {
 
     const wordLength = useSelector((state) => state.wordLength.length);
 
-    // const [allAttempts, setAllAttempts]  = useState([]); // check length cant be bigger than max num of attempts
-
-
-    // useEffect(() => {
-    //     console.log(`attemp`, attemp);
-    // }, [attemp]);
 
     const currRow = useSelector((state) => state.currRow);
     // // console.log(`>>> ${fln}  > currRow:`, currRow);
@@ -34,15 +28,15 @@ export function Keyboard() {
         const keyPressed = target.dataset.key;
         
         if (keyPressed === "del") {
-            currRow.length > 0 && dispatch(deleteLetterInAttemp());
+            currRow.length > 0 && dispatch(deleteLetterInRow());
         }
         else if (keyPressed === "enter") {
-            currRow.length === wordLength && console.log(" --> SUBMIT ATTEMPT", currRow);
-            // -- pass it to allAttempts
+            currRow.length === wordLength && console.log(" --> SUBMIT ROW", currRow);
+            // -- pass it to allRows
             // -- eval //? render colors on retrieving it from allAtt in gameBorad
         }
         else {
-            currRow.length < wordLength && dispatch(addLetterInAttemp(keyPressed));
+            currRow.length < wordLength && dispatch(addLetterInRow(keyPressed));
         }
     };
 
