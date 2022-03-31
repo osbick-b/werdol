@@ -1,12 +1,11 @@
 export function OneAttempReducer(oneAttemp = [], action) {
     switch (action.type) {
                     case "LetterInAttemp/add": {
-                        console.log("redux -- LetterInAttemp/add");
                         oneAttemp = [...oneAttemp, action.payload.keyPressed];
                         break;
                     }
                     case "LetterInAttemp/deleted": {
-                        console.log("redux -- LetterInAttemp/delete");
+                        // console.log("redux -- LetterInAttemp/delete");
                         const att = [...oneAttemp];
                         // console.log(`SLI> att`, att);
                         att.pop();
@@ -39,10 +38,3 @@ export function deleteLetterInAttemp(data) {
         payload: { data },
     };
 }
-
-// export function getAttempValue() {
-//     return {
-//         type: "AttempValue/get",
-//         payload: {},
-//     };
-// }

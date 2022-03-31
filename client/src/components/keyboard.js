@@ -37,7 +37,9 @@ export function Keyboard() {
             oneAttemp.length > 0 && dispatch(deleteLetterInAttemp());
         }
         else if (keyPressed === "enter") {
-            oneAttemp.length === gameLength && console.log(" --> SUBMIT ATTEMPT");
+            oneAttemp.length === gameLength && console.log(" --> SUBMIT ATTEMPT", oneAttemp);
+            // -- pass it to allAttempts
+            // -- eval //? render colors on retrieving it from allAtt in gameBorad
         }
         else {
             oneAttemp.length < gameLength && dispatch(addLetterInAttemp(keyPressed));
