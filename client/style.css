@@ -26,8 +26,9 @@
     --font-main: 'Manjari', sans-serif;  
     --font-fancy: 'Bree Serif', serif;
     --border-thin: 1px solid var(--medium-gray);
-    /* --c-bg-main:  var(--dark-gray); */
-    /* --c-text-main: var(--the-white); */
+    --c-bg-main:  var(--dark-gray);
+    --c-text-main: var(--the-white);
+    --c-text-title: var(--light-gray);
     --width-content-main: 70vw;
     /* TODO: dark mode and */
 
@@ -130,14 +131,26 @@ a, button {
     padding: 0;
 }
 
+button:not(.keyb) {
+    margin: 0 6px;
+    padding: 0.1rem 0.4rem;
+}
+
+label {
+    color: var(--c-text-main);
+
+}
+
 h1:not(.logo) {
     font-family: var(--font-fancy);
     margin-bottom: var(--padding-main);
+    color: var(--c-text-title);
 }
 
 h2, h3 {
     font-family: var(--font-main);
     font-weight: 400;
+    color: var(--c-text-title);
 }
 
 /* =============================================================================
@@ -187,15 +200,18 @@ header.main, .game-board, .keyboard, .modal-box {
 
 /* ====== MODAL ====================================================*/
 .modal-bg {
-    --opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background-color: var(--c-bg-main);
+    background-color: var(--c-bg-main); 
     z-index: 800;
+
 }
 
 .modal-box {
@@ -204,9 +220,10 @@ header.main, .game-board, .keyboard, .modal-box {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: var(--gap-main);
     position: relative;
     background-color: var(--c-bg-main);
-    border: var(--testing-border);
+    /* border: var(--testing-border); */
     z-index: 810;
 
 }
@@ -251,7 +268,7 @@ header.main, .game-board, .keyboard, .modal-box {
 .keyboard {
     /* height: has a fixed height -- its words that resize */
     /* width: also fixed -- based on mobile - its blank area that grows */
-    border: var(--testing-border);
+    /* border: var(--testing-border); */
     /* min-width: 60vw; */
     height: 30vh;
     display: flex;

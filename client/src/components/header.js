@@ -1,26 +1,20 @@
-
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-import { Modal } from "./modal";
-
 
 
 // =============================================================================
 
-export function HeaderMain({toggleDarkMode}) {
-    const [modalOn, setModalOn] = useState(false);
-
-
-    const toggleModal = () => setModalOn(!modalOn);
-
+export function HeaderMain({ toggleDarkMode, toggleModal }) {
 
     return (
         <>
-            {!modalOn && <header className="main">
+            <header className="main">
                 <nav className="nav-left">
-                    <button className="nav-btn">Nav</button>
+                    <Link to={"/configs"}>
+                        <button className="nav-btn" onClick={toggleModal}>
+                            Configs
+                        </button>
+                    </Link>
                     <button className="nav-btn icon" onClick={toggleModal}>
                         Stats
                     </button>
@@ -29,9 +23,7 @@ export function HeaderMain({toggleDarkMode}) {
                 <nav className="nav-right">
                     <button onClick={toggleDarkMode}>Dark Mode</button>
                 </nav>
-            </header>}
-
-            {modalOn && <Modal render={"compName"} toggleModal={toggleModal} />}
+            </header>
         </>
     );
 }
