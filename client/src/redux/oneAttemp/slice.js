@@ -7,12 +7,16 @@ export function OneAttempReducer(oneAttemp = [], action) {
                     }
                     case "LetterInAttemp/deleted": {
                         console.log("redux -- LetterInAttemp/delete");
-                        oneAttemp = [...oneAttemp.pop()];
+                        const att = [...oneAttemp];
+                        // console.log(`SLI> att`, att);
+                        att.pop();
+                        // console.log(`SLI> att AFTER`, att);
+                        oneAttemp = [...att];
+                        // oneAttemp = [...oneAttemp].pop();
+                        // console.log(`oneAttemp AFTER`, oneAttemp);
                         break;
                     }
 
-        // default:
-        //     break;
     }
 
     return oneAttemp;
@@ -29,10 +33,10 @@ export function addLetterInAttemp(keyPressed) {
     };
 }
 
-export function deleteLetterInAttemp() {
+export function deleteLetterInAttemp(data) {
     return {
         type: "LetterInAttemp/deleted",
-        payload: {  },
+        payload: { data },
     };
 }
 

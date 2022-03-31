@@ -4,7 +4,7 @@ const fln = "keyboard.js";
 
 //* keyboard in wordle has a spacer div on each side of the middle row
 import { useState, useEffect } from "react";
-import { useDispatch, useSelect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     addLetterInAttemp,
     deleteLetterInAttemp,
@@ -17,27 +17,31 @@ import {
 export function Keyboard() {
     const dispatch = useDispatch();
 
+    const gameLength = useSelector((state) => state.wordLength.length);
+
     // const [allAttempts, setAllAttempts]  = useState([]); // check length cant be bigger than max num of attempts
-    // const [attemp, setAttemp]  = useState([]);
+
 
     // useEffect(() => {
     //     console.log(`attemp`, attemp);
     // }, [attemp]);
 
+    const oneAttemp = useSelector((state) => state.oneAttemp);
+    console.log(`>>> ${fln}  > oneAttemp:`, oneAttemp);
+
+
     const handleClick = ({ target }) => {
         const keyPressed = target.dataset.key;
-        console.log(`>>> ${fln}  > keyPressed:`, keyPressed);
         
         if (keyPressed === "del") {
-            dispatch(deleteLetterInAttemp);
+            oneAttemp.length > 0 && dispatch(deleteLetterInAttemp());
         }
-        if (keyPressed === "enter") {
-            console.log(" --> SUBMIT ATTEMPT");
+        else if (keyPressed === "enter") {
+            oneAttemp.length === gameLength && console.log(" --> SUBMIT ATTEMPT");
         }
         else {
-            dispatch(addLetterInAttemp(keyPressed));
+            oneAttemp.length < gameLength && dispatch(addLetterInAttemp(keyPressed));
         }
-        // setAttemp([...attemp, keyPressed]);
     };
 
 
