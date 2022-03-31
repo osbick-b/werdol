@@ -10,7 +10,7 @@ import { fillAllGameRows, addToAllGameRows } from "../redux/allGameRows/slice";
 
 export function GameBoard() {
     const dispatch = useDispatch();
-    const [indexCurrRow, setIndexCurrRow]  = useState(0);
+    const [indexCurrRow, setIndexCurrRow] = useState(0);
 
     const correctWord = ["w", "o", "r", "d", "l"]; //!-- placeholder
 
@@ -27,16 +27,17 @@ export function GameBoard() {
         dispatch(fillAllGameRows(wordLength));
     }, [wordLength]);
     // TODO -- disable change while in game --> OR == end game if thats the case -- confirmation scr
-    
 
     useEffect(() => {
-        // const indexCurrRow = allGameRows.findIndex((row) => );
-
+        // const indexCurrRow2 = allGameRows.findIndex((row) => !!row[0])+1;
+        setIndexCurrRow(allGameRows.findIndex((row) => !!row[0]) + 1);
+        // console.log(`indexCurrRow2`, indexCurrRow2);
     }, [allGameRows]);
+        
+    console.log(`indexCurrRow`, indexCurrRow);
     //! =========================================================================
     //indexOf
-    
-    
+
     //! =========================================================================
     // --- Row merging empty + input
     const mergedArr = currRow.concat(
@@ -63,14 +64,23 @@ export function GameBoard() {
             {allGameRows[0] &&
                 allGameRows.map((row, i) => (
                     <div key={i} className="game-row" data-attempt-no={i + 1}>
-                        {/* {i===indexCurrRow && <h1>CurrRow {i}</h1>} */}
-                        {i===indexCurrRow? <h1>CurrRow {i}</h1>:<h1>Nope</h1>}
+                        {i === indexCurrRow
+                            ? mergedArr.map((letter, i) => (
+                                <div key={i} className="game-square">
+                                    {letter}
+                                </div>
+                            ))
+                            : row.map((letter, i) => (
+                                <div key={i} className="game-square">
+                                    {letter}
+                                </div>
+                            ))}
 
-                        {row.map((letter, i) => (
+                        {/* { row.map((letter, i) => (
                             <div key={i} className="game-square">
                                 {letter}
                             </div>
-                        ))}
+                        ))} */}
                     </div>
                 ))}
         </section>

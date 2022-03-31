@@ -9,7 +9,7 @@ export function AllGameRowsReducer(
 ) {
     switch (action.type) {
                     case "allGameRows/fill": {
-                        const oneRow = Array(action.payload.wordLength).fill("q"); //!null
+                        const oneRow = Array(action.payload.wordLength).fill(null); //!null
                         allGameRows = Array(action.payload.wordLength + 1).fill(oneRow);
                         break;
                     }

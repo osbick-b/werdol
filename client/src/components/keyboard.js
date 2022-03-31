@@ -5,10 +5,13 @@ const fln = "keyboard.js";
 //* keyboard in wordle has a spacer div on each side of the middle row
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
     addLetterInRow,
     deleteLetterInRow,
 } from "../redux/currRow/slice";
+import { addToAllGameRows } from "../redux/allGameRows/slice";
+// TODO -- gotta access indexCurrRow from here
 
 
 
