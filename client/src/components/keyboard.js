@@ -27,7 +27,7 @@ export function Keyboard() {
     // }, [attemp]);
 
     const oneAttemp = useSelector((state) => state.oneAttemp);
-    console.log(`>>> ${fln}  > oneAttemp:`, oneAttemp);
+    // // console.log(`>>> ${fln}  > oneAttemp:`, oneAttemp);
 
 
     const handleClick = ({ target }) => {
