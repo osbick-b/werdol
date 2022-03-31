@@ -1,10 +1,11 @@
 
 import { combineReducers } from "redux";
-import AttemptsReducer from "./attempts/slice";
+import { OneAttempReducer } from "./oneAttemp/slice";
+
 
 
 const rootReducer = combineReducers({
-    attempts: AttemptsReducer, // --- !! the key name used here for each mini-reducer will be used later in the component with useSelect to access this particular sub-state
+    oneAttemp: OneAttempReducer,
 });
 
 
