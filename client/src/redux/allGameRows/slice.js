@@ -3,26 +3,26 @@
 // =============================================================================
 // ALL ATTEMPTS
 // =============================================================================
-export function AllAttemptsReducer(
-    allAttempts = [],
+export function AllGameRowsReducer(
+    allGameRows = [],
     action
 ) {
     switch (action.type) {
-                    case "allAttempts/fill": {
-                        const oneRow = Array(action.payload.gameLength).fill(null);
-                        allAttempts = Array(action.payload.gameLength + 1).fill(oneRow);
+                    case "allGameRows/fill": {
+                        const oneRow = Array(action.payload.wordLength).fill(null);
+                        allGameRows = Array(action.payload.wordLength + 1).fill(oneRow);
                         break;
                     }
-                    case "allAttempts/add": {
+                    case "allGameRows/add": {
                         // console.log(action.type);
                         break;
                     }
-                    case "submittedAttemp/added": {
-                        allAttempts = [...allAttempts, ]; //!
+                    case "submittedRow/added": {
+                        allGameRows = [...allGameRows, ]; //!
                         break;
                     }
     }
-    return allAttempts;
+    return allGameRows;
 }
 
 // =============================================================================
@@ -30,23 +30,23 @@ export function AllAttemptsReducer(
 // =============================================================================
 // --- insert actions here. snippet ACTN
 
-export function fillAllAttempts(gameLength) {
+export function fillAllGameRows(wordLength) {
     return {
-        type: "allAttempts/fill",
-        payload: { gameLength },
+        type: "allGameRows/fill",
+        payload: { wordLength },
     };
 }
 
-export function addToAllAttempts(data) {
+export function addToAllGameRows(data) {
     return {
-        type: "allAttempts/add",
+        type: "allGameRows/add",
         payload: { data },
     };
 }
 
-export function addSubmittedAttemp(oneAttemp, i) {
+export function addSubmittedRow(oneAttemp, i) {
     return {
-        type: "submittedAttemp/added",
+        type: "submittedRow/added",
         payload: { data: oneAttemp, index:i }, //!
     };
 }

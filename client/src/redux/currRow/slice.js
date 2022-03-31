@@ -1,24 +1,24 @@
-export function OneAttempReducer(oneAttemp = [], action) {
+export function CurrRowReducer(currRow = [], action) {
     switch (action.type) {
                     case "LetterInAttemp/add": {
-                        oneAttemp = [...oneAttemp, action.payload.keyPressed];
+                        currRow = [...currRow, action.payload.keyPressed];
                         break;
                     }
                     case "LetterInAttemp/deleted": {
                         // console.log("redux -- LetterInAttemp/delete");
-                        const att = [...oneAttemp];
+                        const att = [...currRow];
                         // console.log(`SLI> att`, att);
                         att.pop();
                         // console.log(`SLI> att AFTER`, att);
-                        oneAttemp = [...att];
-                        // oneAttemp = [...oneAttemp].pop();
-                        // console.log(`oneAttemp AFTER`, oneAttemp);
+                        currRow = [...att];
+                        // currRow = [...currRow].pop();
+                        // console.log(`currRow AFTER`, currRow);
                         break;
                     }
 
     }
 
-    return oneAttemp;
+    return currRow;
 }
 
 // =============================================================================

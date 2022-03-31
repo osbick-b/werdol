@@ -3,33 +3,33 @@ const fln = "game-board.js";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { addLetterInAttemp, deleteLetterInAttemp } from "./redux/oneAttemp/slice";
-import { fillAllAttempts, addToAllAttempts } from "../redux/allAttempts/slice";
+// import { addLetterInAttemp, deleteLetterInAttemp } from "./redux/currRow/slice";
+import { fillAllGameRows, addToAllGameRows } from "../redux/allGameRows/slice";
 
 // =============================================================================
 
 export function GameBoard() {
     const dispatch = useDispatch();
 
-    const gameLength = useSelector((state) => state.wordLength.length);
-    const oneAttemp = useSelector((state) => state.oneAttemp);
-    const allAttempts = useSelector((state) => state.allAttempts);
-    // // const emptyArr = Array(gameLength).fill(null);
+    const wordLength = useSelector((state) => state.wordLength.length);
+    const currRow = useSelector((state) => state.currRow);
+    const allGameRows = useSelector((state) => state.allGameRows);
+    // // const emptyArr = Array(wordLength).fill(null);
 
     const correctWord = ["w", "o", "r", "d", "l"]; //!-- placeholder
     // console.log("concat>> ", correctWord.join());
-    console.log(`>>> ${fln}  > allAttempts:`, allAttempts);
+    console.log(`>>> ${fln}  > allGameRows:`, allGameRows);
     // =========================================================================
     // --- Fill All Attempts
     useEffect(() => {
-        dispatch(fillAllAttempts(gameLength));
-    }, [gameLength]);
+        dispatch(fillAllGameRows(wordLength));
+    }, [wordLength]);
 
     // =========================================================================
     // --- Row merging empty + input
-    const mergedArr = oneAttemp.concat(
-        Array(gameLength - oneAttemp.length).fill(null)
-    ); // -- completes row with null until end of gameLength
+    const mergedArr = currRow.concat(
+        Array(wordLength - currRow.length).fill(null)
+    ); // -- completes row with null until end of wordLength
     console.log(`mergedArr`, mergedArr);
     // =========================================================================
 
@@ -44,8 +44,8 @@ export function GameBoard() {
                 ))}
             </div> */}
             {/* ------------------------------------- */}
-            {allAttempts[0] &&
-                allAttempts.map((oneAtt, i) => (
+            {allGameRows[0] &&
+                allGameRows.map((oneAtt, i) => (
                     <div key={i} className="game-row" data-attempt-no={i + 1}>
                         {oneAtt.map((letter, i) => (
                             <div key={i} className="game-square">

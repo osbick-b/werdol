@@ -1,14 +1,14 @@
 
 import { combineReducers } from "redux";
-import { OneAttempReducer } from "./oneAttemp/slice";
-import { AllAttemptsReducer } from "./allAttempts/slice";
+import { CurrRowReducer } from "./currRow/slice";
+import { AllGameRowsReducer } from "./allGameRows/slice";
 import { WordLengthReducer } from "./wordLength/slice";
 
 
 
 const rootReducer = combineReducers({
-    oneAttemp: OneAttempReducer,
-    allAttempts: AllAttemptsReducer,
+    currRow: CurrRowReducer,
+    allGameRows: AllGameRowsReducer,
     wordLength: WordLengthReducer,
 });
 
