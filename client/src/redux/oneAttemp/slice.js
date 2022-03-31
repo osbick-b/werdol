@@ -1,4 +1,4 @@
-export function OneAttempReducer(oneAttemp = ['b','o','o','b','s'], action) {
+export function OneAttempReducer(oneAttemp = [], action) {
     switch (action.type) {
                     case "LetterInAttemp/add": {
                         console.log("redux -- LetterInAttemp/add");
