@@ -5,14 +5,13 @@ export function CurrRowReducer(currRow = [], action) {
                         break;
                     }
                     case "LetterInRow/deleted": {
-                        // console.log("redux -- LetterInRow/delete");
                         const att = [...currRow];
-                        // console.log(`SLI> att`, att);
                         att.pop();
-                        // console.log(`SLI> att AFTER`, att);
                         currRow = [...att];
-                        // currRow = [...currRow].pop();
-                        // console.log(`currRow AFTER`, currRow);
+                        break;
+                    }
+                    case "row/reset": {
+                        currRow = [];
                         break;
                     }
 
@@ -36,5 +35,12 @@ export function deleteLetterInRow(data) {
     return {
         type: "LetterInRow/deleted",
         payload: { data },
+    };
+}
+
+export function resetRow(data) {
+    return {
+        type: "row/reset",
+        payload: {data},
     };
 }
