@@ -10,9 +10,9 @@ import {
     addLetterInRow,
     deleteLetterInRow,
 } from "../redux/currRow/slice";
-import { addToAllGameRows } from "../redux/allGameRows/slice";
+import { submitCurrRowToAllRows } from "../redux/allGameRows/slice";
 // TODO -- gotta access indexCurrRow from here
-
+import { useIndexCurrRow } from "../hooks/useIndexCurrRow";
 
 
 // =============================================================================
@@ -21,10 +21,11 @@ export function Keyboard() {
     const dispatch = useDispatch();
 
     const wordLength = useSelector((state) => state.wordLength.length);
-
-
     const currRow = useSelector((state) => state.currRow);
-    // // console.log(`>>> ${fln}  > currRow:`, currRow);
+    const [indexCurrRow] = useIndexCurrRow();
+    // =============================================================================
+    console.log(`indexCurrRow`, indexCurrRow);
+
 
 
     const handleClick = ({ target }) => {
@@ -36,6 +37,7 @@ export function Keyboard() {
         else if (keyPressed === "enter") {
             currRow.length === wordLength && console.log(" --> SUBMIT ROW", currRow);
             // -- pass it to allRows
+            dispatch(submitCurrRowToAllRows(currRow, ));
             // -- eval //? render colors on retrieving it from allAtt in gameBorad
         }
         else {

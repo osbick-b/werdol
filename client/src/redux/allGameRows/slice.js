@@ -9,16 +9,22 @@ export function AllGameRowsReducer(
 ) {
     switch (action.type) {
                     case "allGameRows/fill": {
+                        // const oneRow = Array(action.payload.wordLength).fill(null); //!null
                         const oneRow = Array(action.payload.wordLength).fill(null); //!null
-                        allGameRows = Array(action.payload.wordLength + 1).fill(oneRow);
+                        const oneRow2 = Array(action.payload.wordLength).fill(4); //!null
+                        allGameRows = Array(3)
+                            .fill(oneRow2)
+                            .concat(
+                                Array(2).fill(
+                                    oneRow
+                                )
+                            );
+                        // allGameRows = Array(action.payload.wordLength + 1).fill(oneRow);
+                        console.log(`allGameRows`, allGameRows);
                         break;
                     }
-                    case "allGameRows/add": {
-                        // console.log(action.type);
-                        break;
-                    }
-                    case "submittedRow/added": {
-                        allGameRows = [...allGameRows, ]; //!
+                    case "currRowToAllRows/submit": {
+                        allGameRows = [...allGameRows]; //!
                         break;
                     }
     }
@@ -37,17 +43,11 @@ export function fillAllGameRows(wordLength) {
     };
 }
 
-export function addToAllGameRows(data) {
-    return {
-        type: "allGameRows/add",
-        payload: { data },
-    };
-}
 
-export function addSubmittedRow(oneAttemp, i) {
+export function submitCurrRowToAllRows(data, i) {
     return {
-        type: "submittedRow/added",
-        payload: { data: oneAttemp, index:i }, //!
+        type: "currRowToAllRows/submit",
+        payload: { data, i }, //!
     };
 }
 
