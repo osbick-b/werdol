@@ -15,7 +15,6 @@ export function GameBoard() {
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
 
-
     // =========================================================================
     // --- UPDATES INDEX CURR ROW
     useEffect(() => {
@@ -33,6 +32,24 @@ export function GameBoard() {
     const rowInProcess = currRow.concat(
         Array(wordLength - currRow.length).fill(null)
     );
+    // =========================================================================
+    // --- CONDITIONAL COLOR on LETTER EVAL
+    const letterEval = (letter, i) => {
+        const correctWord = ["w", "o", "r", "d", "l"]; //!-- placeholder
+        // const correctWord = useSelector(); // TODO -- select it from some state
+
+        let colorClass = "";
+        if (letter === correctWord[i]) {
+            colorClass = "correct";
+        } else if (correctWord.includes(letter)) {
+            colorClass = "present";
+        } else if (letter) {
+            colorClass = "absent";
+        }
+        return " " + colorClass;
+        }
+
+    };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
@@ -42,44 +59,23 @@ export function GameBoard() {
                     <div key={iR} className="game-row" data-attempt-no={iR + 1}>
                         {iR === indexCurrRow
                             ? row.map((letter, iL) => (
-                                <div key={iL} className={"game-square" +(currRow[iL]?" typed":"")}>
+                                <div
+                                    key={iL}
+                                    className={"game-square" + (currRow[iL] ? " typed" : "")}>
                                     {currRow[iL]}
                                 </div>
                             ))
                             : row.map((letter, iL) => (
-                                <div key={iL} className={"game-square"}>
+                                <div
+                                    key={iL}
+                                    className={"game-square" + letterEval(letter, iL)}>
                                     {letter}
                                 </div>
                             ))}
                     </div>
                 ))}
 
-            {/* {allGameRows[0] &&
-                allGameRows.map((row, i) => (
-                    <div key={i} className="game-row" data-attempt-no={i + 1}>
-                    {i === indexCurrRow
-                        ? rowInProcess.map((letter, i) => (
-                            <div key={i} 
-                            className={"game-square" +(letter?" typed":"")}>
-                                // className="game-square typed">
-                                    {letter}
-                                </div>
-                            ))
-                            : row.map((letter, i) => (
-                                <div key={i} className="game-square">
-                                    {letter}
-                                </div>
-                            ))}
-                    </div>
-                ))} */}
 
-            <div className="game-row">
-                <div className="game-square">B</div>
-                <div className="game-square absent">O</div>
-                <div className="game-square correct">R</div>
-                <div className="game-square present">A</div>
-                <div className="game-square typed">A</div>
-            </div>
         </section>
     );
 }
