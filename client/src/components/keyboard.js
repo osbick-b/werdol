@@ -65,7 +65,7 @@ export function Keyboard() {
 
     const keyEval = (key) => {
         let keyClass = "";
-        
+
         if (absent.includes(key)) {
             keyClass = "absent";
         } else if (correct.includes(key)) {
@@ -84,10 +84,12 @@ export function Keyboard() {
     // =========================================================================
     const handleClick = ({ target }) => {
         const keyPressed = target.dataset.key;
+        if (indexCurrRow >= allGameRows.length) {
+            return console.log("GAME IS ALREADY FINISHED");
+        }
         if (keyPressed === "del") {
             currRow.length > 0 && dispatch(deleteLetterInRow());
         } else if (keyPressed === "enter") {
-            console.log("--> SUBMIT");
             currRow.length === wordLength &&
                 (dispatch(submitCurrRowToAllRows(currRow, indexCurrRow)),
                 dispatch(resetRow(indexCurrRow)),
@@ -96,10 +98,6 @@ export function Keyboard() {
             currRow.length < wordLength && dispatch(addLetterInRow(keyPressed));
         }
     };
-    // =========================================================================
-    console.log(`correct`, correct);
-    console.log(`present`, present);
-    console.log(`absent`, absent);
     //// ============================================================================================================ //
     //// ============================================================================================================ //
     return (

@@ -1,7 +1,7 @@
 
 
 // =============================================================================
-// ALL ATTEMPTS
+// ALL GAME ROWS
 // =============================================================================
 export function AllGameRowsReducer(
     allGameRows = [],
@@ -11,15 +11,12 @@ export function AllGameRowsReducer(
                     case "allGameRows/fill": {
                         const oneRow = Array(action.payload.wordLength).fill(null); //!null
                         allGameRows = Array(action.payload.wordLength + 1).fill(oneRow);
-                        console.log(`allGameRows`, allGameRows);
                         break;
                     }
                     case "currRowToAllRows/submit": {
                         const allRowsSoFar = [...allGameRows];
-                        console.log(`allGameRows`, allGameRows);
                         allRowsSoFar.splice(action.payload.i, 1, action.payload.data);
-                        console.log(`allRowsSoFar`, allRowsSoFar);
-                        allGameRows = [...allRowsSoFar]; //!
+                        allGameRows = [...allRowsSoFar]; 
                         break;
                     }
     }
@@ -42,7 +39,7 @@ export function fillAllGameRows(wordLength) {
 export function submitCurrRowToAllRows(data, i) {
     return {
         type: "currRowToAllRows/submit",
-        payload: { data, i }, //!
+        payload: { data, i },
     };
 }
 

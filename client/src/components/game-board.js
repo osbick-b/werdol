@@ -15,9 +15,13 @@ export function GameBoard() {
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
 
+    const correctWord = ["W", "O", "R", "D", "L"]; //!-- placeholder
+    // const correctWord = useSelector(); // TODO -- select it from some state
+
     // =========================================================================
     // --- UPDATES INDEX CURR ROW
     useEffect(() => {
+        checkForWin();
         setIndexCurrRow(allGameRows.filter((row) => !!row[0]).length);
     }, [allGameRows]);
 
@@ -26,6 +30,16 @@ export function GameBoard() {
     useEffect(() => {
         dispatch(fillAllGameRows(wordLength));
     }, [wordLength]);
+    // =========================================================================
+    // --- CHECK FOR WIN
+    function checkForWin() {
+        allGameRows.map(
+            (row, i) =>
+                row[0] &&
+                (row.join() === correctWord.join()
+                    ? console.log(">>> YOU WON!!!! on attemp", i + 1)
+                    : indexCurrRow === allGameRows.length-1 && console.log(">>> YOU LOSE"))
+        );}
 
     // =========================================================================
     // --- ROW MERGING EMPTY + INPUT
@@ -35,9 +49,6 @@ export function GameBoard() {
     // =========================================================================
     // --- CONDITIONAL COLOR on LETTER EVAL
     const letterEval = (letter, i) => {
-        // const correctWord = useSelector(); // TODO -- select it from some state
-        const correctWord = ["W", "O", "R", "D", "L"]; //!-- placeholder
-
         let colorClass = "";
         if (letter === correctWord[i]) {
             colorClass = "correct";
@@ -48,8 +59,14 @@ export function GameBoard() {
         }
         return " " + colorClass;
     };
+    // !=========================================================================
+    // --- 
+    
 
-
+    
+    
+    
+    // !=========================================================================
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <section className="game-board">
