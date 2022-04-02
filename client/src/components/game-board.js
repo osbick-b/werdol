@@ -15,7 +15,6 @@ export function GameBoard() {
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
 
-    const correctWord = ["w", "o", "r", "d", "l"]; //!-- placeholder
 
     // =========================================================================
     // --- UPDATES INDEX CURR ROW
@@ -34,18 +33,35 @@ export function GameBoard() {
     const rowInProcess = currRow.concat(
         Array(wordLength - currRow.length).fill(null)
     );
-    // =========================================================================
 
-    //// ============================================================================================================ //
-    //// ============================================================================================================ //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <section className="game-board">
             {allGameRows[0] &&
+                allGameRows.map((row, iR) => (
+                    <div key={iR} className="game-row" data-attempt-no={iR + 1}>
+                        {iR === indexCurrRow
+                            ? row.map((letter, iL) => (
+                                <div key={iL} className={"game-square" +(currRow[iL]?" typed":"")}>
+                                    {currRow[iL]}
+                                </div>
+                            ))
+                            : row.map((letter, iL) => (
+                                <div key={iL} className={"game-square"}>
+                                    {letter}
+                                </div>
+                            ))}
+                    </div>
+                ))}
+
+            {/* {allGameRows[0] &&
                 allGameRows.map((row, i) => (
                     <div key={i} className="game-row" data-attempt-no={i + 1}>
-                        {i === indexCurrRow
-                            ? rowInProcess.map((letter, i) => (
-                                <div key={i} className="game-square">
+                    {i === indexCurrRow
+                        ? rowInProcess.map((letter, i) => (
+                            <div key={i} 
+                            className={"game-square" +(letter?" typed":"")}>
+                                // className="game-square typed">
                                     {letter}
                                 </div>
                             ))
@@ -55,7 +71,15 @@ export function GameBoard() {
                                 </div>
                             ))}
                     </div>
-                ))}
+                ))} */}
+
+            <div className="game-row">
+                <div className="game-square">B</div>
+                <div className="game-square absent">O</div>
+                <div className="game-square correct">R</div>
+                <div className="game-square present">A</div>
+                <div className="game-square typed">A</div>
+            </div>
         </section>
     );
 }

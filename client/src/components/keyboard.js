@@ -119,9 +119,8 @@ export function Keyboard() {
             <div className="keyboard-row">
                 <button
                     data-key="enter"
-                    className="keyb"
+                    className="keyb sp"
                     onClick={handleClick}
-                    className="sp"
                 >
                     ✅
                 </button>
@@ -148,9 +147,8 @@ export function Keyboard() {
                 </button>
                 <button
                     data-key="del"
-                    className="keyb"
+                    className="keyb sp"
                     onClick={handleClick}
-                    className="sp"
                 >
                     🔙
                 </button>

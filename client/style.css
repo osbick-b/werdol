@@ -15,49 +15,54 @@
 
     --dark-gray: hsla(229, 12%, 17%, var(--opacity));
     --medium-gray: hsla(0, 0%, 32%, var(--opacity));
-    --light-gray: #807E7E;
+    --light-gray: #807e7e;
     /* --light-gray: hsla(0, 0%, 56%, var(--opacity)); */
     --the-yellow: hsla(55, 92%, 58%, var(--opacity));
     --the-white: hsla(240, 14%, 97%, var(--opacity));
     --the-turquoise: hsla(168, 47%, 50%, var(--opacity));
 
-
     /* MAIN VARS */
-    --font-main: 'Manjari', sans-serif;  
-    --font-fancy: 'Bree Serif', serif;
+    --font-main: "Manjari", sans-serif;
+    --font-fancy: "Bree Serif", serif;
     --border-thin: 1px solid var(--medium-gray);
-    --c-bg-main:  var(--dark-gray);
+    --c-bg-main: var(--dark-gray);
     --c-text-main: var(--the-white);
     --c-text-title: var(--light-gray);
     --width-content-main: 70vw;
     /* TODO: dark mode and */
 
     --padding-main: 16px;
-    --gap-main: 3vh;
+    --gap-main: 1vh;
 
     /* *TESTING VARS */
     --testing-border: 2px solid hotpink;
 
-
+    /* HEADER */
+    --nav-header-width: 15vw;
+    --nav-header-gap: var(--gap-main);
 
     /* SQUARE */
     --c-correct: var(--the-turquoise);
     --c-present: var(--the-yellow);
-    --c-absent:var(--light-gray);
-    
+    --c-absent: var(--medium-gray);
+    --c-typed: var(--light-gray);
+
     --sq-side: 50px; /*TODO -- set dynamically*/
     --sq-border: 2px solid var(--medium-gray);
-    
+    --sq-font-size: calc(var(--sq-side) * 0.7);
+
     /* KEYBOARD */
     --c-keyboard-absent: var(--dark-gray);
-    --keyboard-gap: calc(var(--key-width)*0.2);
+    --keyboard-gap: calc(var(--key-width) * 0.2);
+    --keyboard-height: 23vh;
+    --c-keyboard: var(--light-gray);
+
     /* --keyboard-width: 70vw; */
-    --key-width: 6vw; /* is 10% of keyboard width -- not considering the gaps */
-    --key-height: calc(var(--key-width)*1.25);
-    --key-sp-w: calc(var(--key-width)*1.5);
-
-
-
+    --key-height: calc(var(--keyboard-height) * 0.3);
+    --key-width: calc(var(--key-height) * 0.75);
+    --key-sp-w: calc(
+        var(--key-width) * 1.6
+    ); /* key-wid*1.5 + keyboard-gap*0.5 (=key-wid*0.1)*/
 }
 
 /* =============================================================================
@@ -67,32 +72,28 @@
 .darkmode {
     /* SEE ORIGINAL WORDLE FOR REFERENCE */
     /* TODO: colors are darkened a bit */
-    --c-bg-main:  var(--dark-gray);
+    --c-bg-main: var(--dark-gray);
     --c-text-main: var(--the-white);
     --c-key-bg: var(--light-gray);
     --c-square-bg: var(--dark-gray);
 
-    --c-keyboard: var(--light-gray);
-      /* TODO -- edit to darken in dark mode*/
+    /* TODO -- edit to darken in dark mode*/
+    /* --c-keyboard: var(--light-gray);
     --c-correct: var(--the-turquoise);
     --c-present: var(--the-yellow);
-    --c-absent:var(--light-gray);
-
-    
-
+    --c-absent: var(--light-gray); */
 }
 
 .lightmode {
     /* SEE ORIGINAL WORDLE FOR REFERENCE */
-    --c-bg-main:  var(--the-white);
+    --c-bg-main: var(--the-white);
     --c-text-main: var(--dark-gray);
     --c-key-bg: var(--light-gray);
-    
-    --c-keyboard: var(--light-gray);
+
+    /* --c-keyboard: var(--light-gray);
     --c-correct: var(--the-turquoise);
     --c-present: var(--the-yellow);
-    --c-absent:var(--light-gray);
-
+    --c-absent: var(--light-gray); */
 }
 
 /* =============================================================================
@@ -121,9 +122,10 @@ main#app-main {
     align-items: center;
     justify-content: space-between;
     gap: var(--gap-main);
- }
+}
 
-a, button {
+a,
+button {
     text-decoration: none;
     cursor: pointer;
     border: none;
@@ -138,7 +140,6 @@ button:not(.keyb) {
 
 label {
     color: var(--c-text-main);
-
 }
 
 h1:not(.logo) {
@@ -147,7 +148,8 @@ h1:not(.logo) {
     color: var(--c-text-title);
 }
 
-h2, h3 {
+h2,
+h3 {
     font-family: var(--font-main);
     font-weight: 400;
     color: var(--c-text-title);
@@ -156,7 +158,10 @@ h2, h3 {
 /* =============================================================================
 | GENERAL SPACING
 ============================================================================= */
-header.main, .game-board, .keyboard, .modal-box {
+header.main,
+.game-board,
+.keyboard,
+.modal-box {
     padding: var(--padding-main);
 }
 
@@ -164,39 +169,46 @@ header.main, .game-board, .keyboard, .modal-box {
 | OUTER STRUCTURE
 ============================================================================= */
 /* The one in index.html: */
- main#main {
-     width: 100%;
+main#main {
+    width: 100%;
 }
-    
-
 
 /* =============================================================================
 | BY INNER COMPONENT/THING
 ============================================================================= */
 
 /* ====== HEADER ====================================================*/
- header.main {
-     width: 100%;
+header.main {
+    width: 100%;
     border-bottom: var(--border-thin);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
- }
+}
 
-.nav-left {}
-.nav-right {}
+.nav-header {
+    width: var(--nav-header-width);
+    display: flex;
+    gap: var(--nav-header-gap);
+}
+.nav-header.left {
+    justify-content: flex-start;
+}
+.nav-header.right {
+    justify-content: flex-end;
+}
 
-
-.nav-btn {}
-.icon {}
+.nav-btn {
+}
+.icon {
+}
 
 .logo {
     font-family: var(--font-fancy);
     letter-spacing: 0.8px;
 }
-
 
 /* ====== MODAL ====================================================*/
 .modal-bg {
@@ -209,9 +221,8 @@ header.main, .game-board, .keyboard, .modal-box {
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background-color: var(--c-bg-main); 
+    background-color: var(--c-bg-main);
     z-index: 800;
-
 }
 
 .modal-box {
@@ -225,15 +236,12 @@ header.main, .game-board, .keyboard, .modal-box {
     background-color: var(--c-bg-main);
     /* border: var(--testing-border); */
     z-index: 810;
-
 }
 .btn-x {
     position: absolute;
     top: var(--padding-main);
     right: var(--padding-main);
-
 }
-
 
 /* =============================================================================
 | GAME
@@ -243,23 +251,29 @@ header.main, .game-board, .keyboard, .modal-box {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center; */
-    display:grid;
-    gap: calc(var(--sq-side)*0.1);
+    display: grid;
+    gap: calc(var(--sq-side) * 0.1);
 }
 
 .game-row {
     display: flex;
     flex-direction: row;
-    gap: calc(var(--sq-side)*0.1);
+    gap: calc(var(--sq-side) * 0.1);
 }
 
 .game-square {
+    padding: 0;
+    line-height: var(--sq-font-size);
+    text-transform: uppercase;
     border: var(--sq-border);
     height: var(--sq-side);
     width: var(--sq-side);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: var(--sq-font-size);
 }
-
-
 
 /* =============================================================================
 | KEYBOARD
@@ -276,30 +290,53 @@ header.main, .game-board, .keyboard, .modal-box {
     align-items: center;
     justify-content: flex-end;
     gap: var(--keyboard-gap);
-
 }
 
 .keyboard-row {
     /* border: var(--testing-border); */
     display: flex;
+    justify-content: space-around;
     gap: var(--keyboard-gap);
 }
 
 .keyboard-row > button {
     text-transform: uppercase;
+    align-items: center;
     color: var(--c-text-main);
     font-weight: bold;
     padding-top: 3px;
     width: var(--key-width);
     height: var(--key-height);
-    border-radius: calc(var(--key-width)*0.2);
+    border-radius: calc(var(--key-width) * 0.2);
     background-color: var(--c-keyboard);
+    /* flex-grow: 1; */
 }
 
 .keyboard-row > button.sp {
     width: var(--key-sp-w);
+    /* flex-grow: 2; */
 }
 
+/* =============================================================================
+| LETTER EVAL
+============================================================================= */
+.correct {
+    background-color: var(--c-correct);
+    border-color: var(--c-correct);
+}
 
+.present {
+    background-color: var(--c-present);
+    border-color: var(--c-present);
+}
 
+.absent {
+    /* border: var(--c-absent); */
+    border-color: var(--c-absent);
+    background-color: var(--c-absent);
+}
 
+.typed {
+background-color: var(--c-typed);
+border-color: var(--c-typed);
+}
