@@ -35,8 +35,8 @@ export function GameBoard() {
     // =========================================================================
     // --- CONDITIONAL COLOR on LETTER EVAL
     const letterEval = (letter, i) => {
-        const correctWord = ["w", "o", "r", "d", "l"]; //!-- placeholder
         // const correctWord = useSelector(); // TODO -- select it from some state
+        const correctWord = ["W", "O", "R", "D", "L"]; //!-- placeholder
 
         let colorClass = "";
         if (letter === correctWord[i]) {
@@ -47,9 +47,8 @@ export function GameBoard() {
             colorClass = "absent";
         }
         return " " + colorClass;
-        }
-
     };
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (

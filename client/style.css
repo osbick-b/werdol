@@ -27,6 +27,7 @@
     --border-thin: 1px solid var(--medium-gray);
     --c-bg-main: var(--dark-gray);
     --c-text-main: var(--the-white);
+    --c-text-negative: var(--dark-gray);
     --c-text-title: var(--light-gray);
     --width-content-main: 70vw;
     /* TODO: dark mode and */
@@ -299,7 +300,7 @@ header.main {
     gap: var(--keyboard-gap);
 }
 
-.keyboard-row > button {
+.keyb {
     text-transform: uppercase;
     align-items: center;
     color: var(--c-text-main);
@@ -312,7 +313,7 @@ header.main {
     /* flex-grow: 1; */
 }
 
-.keyboard-row > button.sp {
+.keyb.sp {
     width: var(--key-sp-w);
     /* flex-grow: 2; */
 }
@@ -320,20 +321,25 @@ header.main {
 /* =============================================================================
 | LETTER EVAL
 ============================================================================= */
-.correct {
+.correct, .keyb.correct {
     background-color: var(--c-correct);
     border-color: var(--c-correct);
+    color: var(--c-text-negative);
 }
 
-.present {
+.present, .keyb.present {
     background-color: var(--c-present);
     border-color: var(--c-present);
+    color: var(--c-text-negative);
+
 }
 
-.absent {
+.absent, .keyb.absent {
     /* border: var(--c-absent); */
     border-color: var(--c-absent);
     background-color: var(--c-absent);
+    color: var(--c-text-negative); /*! -- see what works for keyboard or not */
+
 }
 
 .typed {
