@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 
 import App from "./app";
+import { Outside } from "./outside";
 
 // ===== Socket.io setup client ===== //
 import { io } from "socket.io-client";
@@ -14,17 +15,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import reducer from "./redux/reducer"; // its called rootReducer in the orig reducer file. you can import it with another name bc we exported it default
 
-
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(immutableState.default()))
 );
 
-
 //=====================================================//
 // in social network it all happens inside the fetch req for user info -- ref down there
 init(store); // call init when user logged in
-
 ReactDOM.render(
     <Provider store={store}>
         <App />
@@ -35,25 +33,23 @@ ReactDOM.render(
 
 
 
-
-// // ////////////////////////////////////////////////////////
-// // fetch("/start/id.json")
+// // fetch("/start/user-id")
 // //     .then((resp) => resp.json())
-// //     .then(({ userCookie }) => {
-// //         console.log(">>>>> userCookie /user/id.json > user_id", userCookie);
-// //         if (userCookie.user_id) {
-// //             init(store); 
-
+// //     .then(({ werdolCookie }) => {
+// //         console.log(" werdolCookie", werdolCookie);
+// //         if (werdolCookie.user_id) {
+// //             init(store); // call init when user logged in
 // //             ReactDOM.render(
 // //                 <Provider store={store}>
-// //                     <App myId={userCookie.user_id} />
+// //                     <App />
 // //                 </Provider>,
 // //                 document.querySelector("main")
 // //             );
 // //         } else {
-// //             ReactDOM.render(<Welcome />, document.querySelector("main"));
+// //             ReactDOM.render(<Outside />, document.querySelector("main"));
 // //         }
 // //     })
 // //     .catch((err) => {
-// //         console.log(`error in start.js`, err);
+// //         console.log(`>> Error in /start/user-id`, err);
 // //     });
+

@@ -22,6 +22,9 @@ const io = require("socket.io")(server, {
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
 
+// ===== Routes ==== //
+const loginRoutes = require("./routes/login-routes");
+
 
 // =============================================================================
 // MIDDLEWARE
@@ -43,11 +46,18 @@ io.use(function (socket, next) {
 // ROUTES
 // =============================================================================
 
-// ===== SOCKET ROUTE ===== //
+// --- START
+app.get("/start/user-id", (req,res) => {
+    res.json({ werdolCookie: req.session });
+});
+
+// --- SOCKET ROUTE 
 require("./routes/socket-routes")(io);
 
+// --- Router Routes 
+app.use("/log-user", loginRoutes);
 
-// ====== STAR ROUTE ===== //
+// --- STAR ROUTE 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     

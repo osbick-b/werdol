@@ -3,17 +3,17 @@
 import { useState, useEffect } from "react";
 
 
-export function Outside() {
+export function Register() {
     useEffect(() => {
-        console.log("--- Outside rendered");
+        console.log("--- Register rendered");
     }, []);
     // =========================================================================
     
 
     /////////////////////////////////////////////////////////////////////////////////
     return (
-        < >
-            <h1>Outside</h1>
-        </>
+        <div className="outside">
+            <h1>Register</h1>
+        </div>
     );
 }
