@@ -22,8 +22,7 @@ const io = require("socket.io")(server, {
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
 
-// ===== Routes ==== //
-const loginRoutes = require("./routes/login-routes");
+
 
 
 // =============================================================================
@@ -46,16 +45,8 @@ io.use(function (socket, next) {
 // ROUTES
 // =============================================================================
 
-// --- START
-app.get("/start/user-id", (req,res) => {
-    res.json({ werdolCookie: req.session });
-});
-
 // --- SOCKET ROUTE 
 require("./routes/socket-routes")(io);
-
-// --- Router Routes 
-app.use("/log-user", loginRoutes);
 
 // --- STAR ROUTE 
 app.get("*", function (req, res) {

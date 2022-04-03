@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fillAllGameRows } from "../redux/allGameRows/slice";
 import { addColorClasses } from "../redux/colorClasses/slice";
 import { addWinToStats } from "../redux/stats/slice";
+import { defineAvailableWords } from "../redux/wordLength/slice";
 
+import { DICTIONARY } from "../../dictionary2300";
 // =============================================================================
 
 export function GameBoard() {
@@ -18,6 +20,7 @@ export function GameBoard() {
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
     const colorClassesAll = useSelector((state) => state.colorClasses);
+
 
     const correctWord = useSelector(
         (state) => state.correctWord[0] && state.correctWord
@@ -39,6 +42,7 @@ export function GameBoard() {
     // --- RENDER BOARD WITH SET WORD LENGTH // TODO -- disable change while in game --> OR == end game if thats the case -- confirmation scr
     useEffect(() => {
         dispatch(fillAllGameRows(wordLength));
+        filterAvaliableWords();
     }, [wordLength]);
     // =========================================================================
     // --- CHECK FOR WIN
@@ -49,8 +53,16 @@ export function GameBoard() {
                 (row.join() === correctWord.join()
                     ? setEndgame("win", dispatch(addWinToStats(i)))
                     : indexCurrRow === allGameRows.length - 1 &&
-                      setEndgame(correctWord.join()))
+                      setEndgame(correctWord.join("")))
         );
+    }
+    // =========================================================================
+    // SET AVAILABLE WORDS
+    function filterAvaliableWords() {
+        const wordsOfThisLength =
+            wordLength &&
+            DICTIONARY.filter((word) => word.length === wordLength);
+        dispatch(defineAvailableWords(wordsOfThisLength));
     }
     // =========================================================================
     // --- WORD EVAL FOR COLOR RENDERING

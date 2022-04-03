@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
 
 import App from "./app";
-import { Outside } from "./outside";
 
 // ===== Socket.io setup client ===== //
 import { io } from "socket.io-client";
@@ -31,25 +30,4 @@ ReactDOM.render(
 );
 
 
-
-
-// // fetch("/start/user-id")
-// //     .then((resp) => resp.json())
-// //     .then(({ werdolCookie }) => {
-// //         console.log(" werdolCookie", werdolCookie);
-// //         if (werdolCookie.user_id) {
-// //             init(store); // call init when user logged in
-// //             ReactDOM.render(
-// //                 <Provider store={store}>
-// //                     <App />
-// //                 </Provider>,
-// //                 document.querySelector("main")
-// //             );
-// //         } else {
-// //             ReactDOM.render(<Outside />, document.querySelector("main"));
-// //         }
-// //     })
-// //     .catch((err) => {
-// //         console.log(`>> Error in /start/user-id`, err);
-// //     });
 

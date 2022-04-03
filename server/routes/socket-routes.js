@@ -1,17 +1,15 @@
-
-
 module.exports = (io) => {
     io.on("connection", function (socket) {
-        console.log(
-            `--- socket with the id ${socket.id} is now connected`
-        );
+        console.log(`--- socket with the id ${socket.id} is now connected`);
 
         // Disconnect
         if (!socket.request.session.user_id) {
             return socket.disconnect(true);
         }
 
-
+        // =============================================================================
+        //! SOCKETS --- SERVER SIDE
+        // =============================================================================
         // const user_id = socket.request.session.user_id;
 
         // db.getLatestMessages()
@@ -40,8 +38,7 @@ module.exports = (io) => {
         //             newMsgObj = { ...newMsgObj, userInfo: rows[0] };
         //             io.emit("displayNewMsg", newMsgObj); //* --- here is server emitting its event
         //         })
-                
-                
+
         //         .catch((err) => {
         //             console.log(`>>> ${fln} >> userWroteNewMsg`, err);
         //         });

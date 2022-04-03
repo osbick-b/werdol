@@ -25,6 +25,8 @@ export function Keyboard() {
     const wordLength = useSelector((state) => state.wordLength.length);
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
+    const availableWords = useSelector((state) => state.wordLength.availableWords);
+    
     const correctWord = useSelector(
         (state) => state.correctWord[0] && state.correctWord
     ) || ["W", "O", "R", "D", "L"]; //!-- placeholder
@@ -35,6 +37,7 @@ export function Keyboard() {
         ["enter", "Z", "X", "C", "V", "B", "N", "M", "del"],
     ];
 
+    console.log(`availableWords`, availableWords);
     // =============================================================================
     useEffect(() => {
         setIndexCurrRow(allGameRows.filter((row) => !!row[0]).length);
