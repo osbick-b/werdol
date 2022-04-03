@@ -1,6 +1,7 @@
 
 export function StatsReducer(stats = {1:3}, action) {
     switch (action.type) {
+                    //! =========================================================
                     case "WinToStats/add": {
                         const numAttempts = action.payload.data;
                         console.log(`numAttempts`, numAttempts);
@@ -11,6 +12,7 @@ export function StatsReducer(stats = {1:3}, action) {
                         console.log(`stats`, stats);
                         break;
                     }
+                    //! =========================================================
     }
     return stats;
 }
@@ -18,7 +20,6 @@ export function StatsReducer(stats = {1:3}, action) {
 // =============================================================================
 // Actions
 // =============================================================================
-// --- insert actions here. snippet ACTN
 
 export function addWinToStats(data) {
     return {

@@ -55,7 +55,6 @@ export function GameBoard() {
     // =========================================================================
     // --- WORD EVAL FOR COLOR RENDERING
     function wordEval(row, iR) {
-        console.log(`iR`, iR);
         if (!row[0]) {
             return;
         }
@@ -114,10 +113,10 @@ export function GameBoard() {
                                   <div
                                       key={iL}
                                       className={
-                                          "game-square" +
-                                          (letter
-                                              ? " " + colorClassesAll[iR][iL]
-                                              : "")
+                                          letter
+                                              ? "game-square " +
+                                                colorClassesAll[iR][iL]
+                                              : "game-square"
                                       }
                                   >
                                       {letter}
