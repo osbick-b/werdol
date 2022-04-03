@@ -15,9 +15,11 @@ export function HeaderMain({ toggleDarkMode, toggleModal }) {
                             Configs
                         </button>
                     </Link>
-                    <button className="nav-btn icon" onClick={toggleModal}>
-                        Stats
-                    </button>
+                    <Link to={"/set-word"}>
+                        <button className="nav-btn icon" onClick={toggleModal}>
+                            set Word
+                        </button>
+                    </Link>
                 </nav>
                 <h1 className="logo">Werdol</h1>
                 <nav className="nav-header right">

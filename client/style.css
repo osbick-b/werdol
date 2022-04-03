@@ -26,6 +26,7 @@
     --font-fancy: "Bree Serif", serif;
     --border-thin: 1px solid var(--medium-gray);
     --c-bg-main: var(--dark-gray);
+    --c-bg-negative: var(--the-white);
     --c-text-main: var(--the-white);
     --c-text-negative: var(--dark-gray);
     --c-text-title: var(--light-gray);
@@ -254,6 +255,7 @@ header.main {
     justify-content: center; */
     display: grid;
     gap: calc(var(--sq-side) * 0.1);
+    position: relative;
 }
 
 .game-row {
@@ -274,6 +276,18 @@ header.main {
     align-items: center;
     justify-content: flex-end;
     font-size: var(--sq-font-size);
+}
+
+.endgame-msg {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    margin: 0 auto;
+    background-color: var(--c-bg-negative);
+    color: var(--c-text-negative);
+    padding: 2% 5% 0;
+    font-size: 2rem;
 }
 
 /* =============================================================================

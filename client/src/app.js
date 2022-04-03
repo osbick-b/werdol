@@ -12,6 +12,11 @@ import { HeaderMain } from "./components/header";
 import { Modal } from "./components/modal";
 import { GameBoard } from "./components/game-board";
 
+
+// === Redux === //
+import { addPlayers } from "./redux/players/slice"; //!
+import { setOnePlayer } from "./redux/onePlayer/slice"; //!
+
 // =============================================================================
 // --- APP --- //
 

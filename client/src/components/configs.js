@@ -23,8 +23,7 @@ export function Configs({ toggleModal }) {
         toggleModal();
     };
 
-    console.log(`${fln} > wordLength`, wordLength);
-    console.log(`newLength`, newLength);
+    // console.log(`newLength`, newLength);
     // =============================================================================
     return (
         <>
@@ -34,7 +33,9 @@ export function Configs({ toggleModal }) {
             <input
                 name="newLength"
                 id="newLength"
-                type="text"
+                type="number"
+                min={5}
+                max={8}
                 placeholder={wordLength}
                 onChange={changeLength}
             />

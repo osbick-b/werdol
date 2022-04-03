@@ -27,6 +27,9 @@ export function Keyboard() {
     const wordLength = useSelector((state) => state.wordLength.length);
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
+    const correctWord = useSelector(
+        (state) => state.correctWord[0] && state.correctWord
+    ) || ["W", "O", "R", "D", "L"]; //!-- placeholder
 
     const KEYB_MODEL = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -42,8 +45,6 @@ export function Keyboard() {
     // =========================================================================
     // COLOR CLASS CONDITIONAL RENDERING
     const storeKeyStatus = (submittedRow) => {
-        const correctWord = ["W", "O", "R", "D", "L"]; //!-- placeholder
-        // const correctWord = useSelector(); // TODO -- select it from some state
         const tempCorrect = [];
         const tempPresent = [];
         const tempAbsent = [];

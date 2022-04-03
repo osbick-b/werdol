@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 
 import { Configs } from "./configs";
+import { WordInput } from "./word-input";
+
 
 // =============================================================================
 export function Modal({ toggleModal }) {
@@ -18,10 +20,14 @@ export function Modal({ toggleModal }) {
                         </button>
                     </Link>
 
-                    {/* <h1>Modal</h1> */}
                     <Route path={"/configs"}>
                         <Configs toggleModal={toggleModal} />
                     </Route>
+                    
+                    <Route path={"/set-word"}>
+                        <WordInput />
+                    </Route>
+
                 </div>
             </BrowserRouter>
         </div>
