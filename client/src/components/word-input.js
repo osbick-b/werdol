@@ -21,7 +21,7 @@ export function WordInput() {
     const handleSubmit = () => {
         if (secretWord.length === wordLength) {
             // console.log(">> Set Secret Word");
-            dispatch(addSecretWord(secretWord.toUpperCase()));
+            dispatch(addSecretWord(secretWord.toUpperCase())); //! -- check what we want to be doing here, where to send the word
             dispatch(setCorrectWord(secretWord));
         }
     };
@@ -29,16 +29,20 @@ export function WordInput() {
     return (
         <>
             <h1>wordInput</h1>
-            <p>Word must have {wordLength} letters.</p>
-            <label htmlFor="secretWord">secretWord</label>
+            <label htmlFor="secret-word">secretWord</label>
             <input
                 name="secretWord"
-                id="secretWord"
+                id="secret-word"
                 type="text"
                 maxLength={wordLength}
                 minLength={wordLength}
                 onChange={handleChange}
             />
+            <span data-descr={"Word must have " + wordLength + " letters."}>
+                ❔
+            </span>
+
+            {/* {input:valid && <p>OK</p>} */}
             <button onClick={handleSubmit}>SET</button>
         </>
     );

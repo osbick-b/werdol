@@ -1,12 +1,11 @@
-const fln = "game-board.js";
+// const fln = "game-board.js";
 ///////////////////////////////////
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fillAllGameRows } from "../redux/allGameRows/slice";
-// import { setCorrectWord } from "../redux/correctWord/slice";
-// import { addSecretWord } from "../redux/onePlayer/slice";
-
+import { addColorClasses } from "../redux/colorClasses/slice";
+import { addWinToStats } from "../redux/stats/slice";
 
 // =============================================================================
 
@@ -18,19 +17,21 @@ export function GameBoard() {
     const wordLength = useSelector((state) => state.wordLength.length);
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
+    const colorClassesAll = useSelector((state) => state.colorClasses);
 
     const correctWord = useSelector(
-        (state) => state.correctWord
-    ); //!-- placeholder
+        (state) => state.correctWord[0] && state.correctWord
+    ) || ["W", "O", "R", "D", "L"]; //!-- placeholder
 
-    const newSecretWord = useSelector((state) => state.onePlayer.secretWord);
+    // const newSecretWord = useSelector((state) => state.onePlayer.secretWord);
 
-    console.log(`newSecretWord`, newSecretWord);
-    console.log(`correctWord`, correctWord);
     // =========================================================================
     // --- UPDATES INDEX CURR ROW
     useEffect(() => {
         checkForWin();
+        allGameRows[0] &&
+            allGameRows[0][0] &&
+            wordEval(allGameRows[indexCurrRow], indexCurrRow);
         setIndexCurrRow(allGameRows.filter((row) => !!row[0]).length);
     }, [allGameRows]);
 
@@ -46,62 +47,52 @@ export function GameBoard() {
             (row, i) =>
                 row[0] &&
                 (row.join() === correctWord.join()
-                    ? setEndgame("win")
+                    ? setEndgame("win", dispatch(addWinToStats(i)))
                     : indexCurrRow === allGameRows.length - 1 &&
-                      (setEndgame("lose"), console.log(">>> YOU LOSE")))
+                      setEndgame(correctWord.join()))
         );
     }
-
     // =========================================================================
-    // --- ROW MERGING EMPTY + INPUT
-    const rowInProcess = currRow.concat(
-        Array(wordLength - currRow.length).fill(null)
-    );
+    // --- WORD EVAL FOR COLOR RENDERING
+    function wordEval(row, iR) {
+        console.log(`iR`, iR);
+        if (!row[0]) {
+            return;
+        }
+        let colorClasses = Array(wordLength).fill("absent"); // pre-fills colorClasses with class "absent", and fn updates it when needed
+        let correctEval = [...correctWord];
+        let rowEval = [...row];
+
+        rowEval.map((letter, iL) => {
+            if (!correctWord.includes(letter)) {
+                // Absent --> removes letters from eval
+                rowEval.splice(iL, 1, null);
+            }
+        });
+        rowEval.map((letter, iL) => {
+            if (letter && letter === correctWord[iL]) {
+                // Correct --> first finds all correct ones and removes them from eval
+                colorClasses.splice(iL, 1, "correct");
+                rowEval.splice(iL, 1, null);
+                correctEval.splice(iL, 1, null);
+            }
+        });
+        rowEval.map((letter, iL) => {
+            if (letter && correctEval.includes(letter)) {
+                // Present --> evals remaining letters against remaining Correct and removes them one by one
+                const iCL = correctEval.findIndex(
+                    (corrLett) => corrLett === letter
+                );
+                colorClasses.splice(iL, 1, "present");
+                rowEval.splice(iL, 1, null);
+                correctEval.splice(iCL, 1, null);
+            }
+        });
+        dispatch(addColorClasses(colorClasses));
+    }
     // =========================================================================
-    // --- CONDITIONAL COLOR on LETTER EVAL
-    const letterEval = (letter, i) => {
-        let colorClass = "";
-        if (letter === correctWord[i]) {
-            colorClass = "correct";
-        } else if (correctWord.includes(letter)) {
-            colorClass = "present";
-        } else if (letter) {
-            colorClass = "absent";
-        }
-        return " " + colorClass;
-    };
-    // !=========================================================================
-    // --- BETTER LETTER CHECK
-    // const betterLetterEval = (letter, i) => {
-    const betterLetterEval = (row, iL) => {
-        let colorClass = "";
-        const letter = row[iL];
-
-        if (letter) {
-            colorClass = "absent";
-        }
-        if (letter === correctWord[iL]) {
-            colorClass = "correct";
-        } else if (correctWord.includes(letter)) {
-            iL === row.findIndex((elem) => elem === letter) &&
-                (colorClass = "present"); // case letter appears 2x in currRow
-            // case letter appears x2 in correctWord
-        }
-
-        return " " + colorClass;
-
-        // correctWord.map((letter,i) => {
-        //     if (row[i] === letter) {
-        //         colorClass = "correct";
-        //     } else if (correctWord.includes(letter)) {
-
-        //     }
-
-        // });
-    };
-
-    // !=========================================================================
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //// ============================================================================================================ //
+    //// ============================================================================================================ //
     return (
         <section className="game-board">
             {allGameRows[0] &&
@@ -113,7 +104,7 @@ export function GameBoard() {
                                       key={iL}
                                       className={
                                           "game-square" +
-                                          (currRow[iL] ? " typed" : "")
+                                          (currRow[iL] ? " " + "typed" : "")
                                       }
                                   >
                                       {currRow[iL]}
@@ -122,10 +113,11 @@ export function GameBoard() {
                             : row.map((letter, iL) => (
                                   <div
                                       key={iL}
-                                      // className={"game-square" + letterEval(letter, iL)}>
                                       className={
                                           "game-square" +
-                                          betterLetterEval(row, iL)
+                                          (letter
+                                              ? " " + colorClassesAll[iR][iL]
+                                              : "")
                                       }
                                   >
                                       {letter}

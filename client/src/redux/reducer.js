@@ -6,8 +6,8 @@ import { CorrectWordReducer } from "./correctWord/slice";
 import { UserCookieReducer } from "./userCookie/slice";
 import { OnePlayerReducer } from "./onePlayer/slice";
 import { PlayersReducer } from "./players/slice";
-
-
+import { ColorClassesReducer } from "./colorClasses/slice";
+import { StatsReducer } from "./stats/slice";
 
 const rootReducer = combineReducers({
     currRow: CurrRowReducer,
@@ -17,6 +17,8 @@ const rootReducer = combineReducers({
     userCookie: UserCookieReducer,
     onePlayer: OnePlayerReducer,
     players: PlayersReducer,
+    colorClasses: ColorClassesReducer,
+    stats: StatsReducer,
 });
 
 export default rootReducer;

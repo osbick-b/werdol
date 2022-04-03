@@ -1,4 +1,4 @@
-const fln = "keyboard.js";
+// const fln = "keyboard.js";
 ///////////////////////////////////
 
 //* keyboard in wordle has a spacer div on each side of the middle row
@@ -11,8 +11,6 @@ import {
     resetRow,
 } from "../redux/currRow/slice";
 import { submitCurrRowToAllRows } from "../redux/allGameRows/slice";
-// TODO -- gotta access indexCurrRow from here
-// import { useIndexCurrRow } from "../hooks/useIndexCurrRow";
 
 // =============================================================================
 
@@ -62,8 +60,8 @@ export function Keyboard() {
         setPresent([...present, ...tempPresent]);
         setAbsent([...absent, ...tempAbsent]);
     };
-    // !=========================================================================
-
+    // =========================================================================
+    // LETTER EVAL FOR COLOR RENDERING
     const keyEval = (key) => {
         let keyClass = "";
 
@@ -81,8 +79,8 @@ export function Keyboard() {
         }
         return " " + keyClass;
     };
-    // !=========================================================================
     // =========================================================================
+    // CLICK HANDLER -- UPDATE CURR ROW // TODO -- add keypress
     const handleClick = ({ target }) => {
         const keyPressed = target.dataset.key;
         if (indexCurrRow >= allGameRows.length) {
