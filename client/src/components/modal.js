@@ -23,11 +23,10 @@ export function Modal({ toggleModal }) {
                     <Route path={"/configs"}>
                         <Configs toggleModal={toggleModal} />
                     </Route>
-                    
-                    <Route path={"/set-word"}>
-                        <WordInput />
-                    </Route>
 
+                    <Route path={"/set-word"}>
+                        <WordInput toggleModal={toggleModal} />
+                    </Route>
                 </div>
             </BrowserRouter>
         </div>

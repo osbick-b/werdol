@@ -21,13 +21,10 @@ export function GameBoard() {
     const allGameRows = useSelector((state) => state.allGameRows);
     const colorClassesAll = useSelector((state) => state.colorClasses);
 
-
-    const correctWord = useSelector(
-        (state) => state.correctWord[0] && state.correctWord
-    ) || ["W", "O", "R", "D", "L"]; //!-- placeholder
+    const correctWord = useSelector((state) => state?.correctWord);
 
     // const newSecretWord = useSelector((state) => state.onePlayer.secretWord);
-
+    console.log(`correctWord`, correctWord);
     // =========================================================================
     // --- UPDATES INDEX CURR ROW
     useEffect(() => {

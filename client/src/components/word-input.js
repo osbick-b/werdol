@@ -7,22 +7,32 @@ import { addSecretWord } from "../redux/onePlayer/slice";
 import { socket } from "../socket";
 // =============================================================================
 
-export function WordInput() {
+export function WordInput({ toggleModal }) {
     const dispatch = useDispatch();
     const [secretWord, setSecretWord] = useState("");
+    const [notValid, setNotValid]  = useState(false);
     const wordLength = useSelector((state) => state.wordLength.length);
+    const availableWords = useSelector(
+        (state) => state.wordLength?.availableWords
+    );
 
     // =========================================================================
-    
+    // VALIDATE WORD
+    const validateWord = () =>
+        secretWord.length === wordLength &&
+        (availableWords.includes(secretWord.toLowerCase()) || setNotValid(true));
+    // =========================================================================
+
     const handleChange = ({ target }) => {
         target.value.length <= wordLength && setSecretWord(target.value);
     };
 
     const handleSubmit = () => {
-        if (secretWord.length === wordLength) {
-            console.log(">> Set Secret Word");
-            dispatch(addSecretWord(secretWord.toUpperCase())); //! -- check what we want to be doing here, where to send the word
+        setNotValid(false);
+        if (validateWord()) {
+            dispatch(addSecretWord(secretWord.toUpperCase()));
             dispatch(setCorrectWord(secretWord));
+            toggleModal();
 
             //? Event Emitter -- NewCorrectWord
             secretWord && socket.emit("playerSetCorrectWord", secretWord); // TODO -- add user/player ID somehow
@@ -32,12 +42,13 @@ export function WordInput() {
     ///////////////////////////////////////////////////////////////////////////////
     return (
         <>
-            <h1>wordInput</h1>
+            <h1>Choose your word</h1>
+            <p>Choose a word of {wordLength} letters for the other player(s) to guess!</p>
             <label htmlFor="secret-word">
-                secretWord
-                <span data-descr={"Word must have " + wordLength + " letters."}>
+                Secret Word
+                {/* <span data-descr={"Word must have " + wordLength + " letters."}>
                     ❔
-                </span>
+                </span> */}
             </label>
             <input
                 name="secretWord"
@@ -48,7 +59,7 @@ export function WordInput() {
                 onChange={handleChange}
             />
 
-            {/* {input:valid && <p>OK</p>} */}
+            {notValid && <p>OK</p>}
             <button onClick={handleSubmit}>SET</button>
         </>
     );

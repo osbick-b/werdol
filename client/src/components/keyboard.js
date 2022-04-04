@@ -17,7 +17,6 @@ import { submitCurrRowToAllRows } from "../redux/allGameRows/slice";
 export function Keyboard() {
     const dispatch = useDispatch();
     const [indexCurrRow, setIndexCurrRow] = useState(0);
-    // const [usedKeys, setUsedKeys] = useState([]);
     const [correct, setCorrect] = useState([]);
     const [present, setPresent] = useState([]);
     const [absent, setAbsent] = useState([]);
@@ -31,8 +30,9 @@ export function Keyboard() {
     );
 
     const correctWord = useSelector(
-        (state) => state.correctWord[0] && state.correctWord
-    ) || ["W", "O", "R", "D", "L"]; //!-- placeholder
+        // (state) => state.correctWord[0] && state.correctWord
+        (state) => state?.correctWord
+    );
 
     const KEYB_MODEL = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -40,6 +40,7 @@ export function Keyboard() {
         ["enter", "Z", "X", "C", "V", "B", "N", "M", "del"],
     ];
 
+    console.log(`correctWord`, correctWord);
     console.log(`availableWords`, availableWords);
     // =============================================================================
     useEffect(() => {
@@ -50,8 +51,8 @@ export function Keyboard() {
     // VALIDATE WORD
     const validateCurrRow = () =>
         currRow.length === wordLength &&
-            (availableWords.includes(currRow.join("").toLowerCase()) ||
-        setNotAWord(true));
+        (availableWords.includes(currRow.join("").toLowerCase()) ||
+            setNotAWord(true));
 
     // =========================================================================
     // COLOR CLASS CONDITIONAL RENDERING
@@ -85,7 +86,6 @@ export function Keyboard() {
         } else if (present.includes(key)) {
             keyClass = "present";
         }
-
         // colors
         if (key === "enter" || key === "del") {
             keyClass = "sp";
@@ -97,6 +97,7 @@ export function Keyboard() {
     const handleClick = ({ target }) => {
         setNotAWord(false);
         const keyPressed = target.dataset.key;
+
         if (indexCurrRow >= allGameRows.length) {
             return console.log("GAME IS ALREADY FINISHED");
         }
