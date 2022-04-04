@@ -6,6 +6,7 @@
 export function CorrectWordReducer(correctWord = [], action) {
     switch (action.type) {
                     case "correctWord/set": {
+                        console.log(`action.payload.data`, action.payload.data);
                         correctWord = [...action.payload.data.toUpperCase()];
                         break;
                     }

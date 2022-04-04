@@ -7,6 +7,7 @@ import { fillAllGameRows } from "../redux/allGameRows/slice";
 import { addColorClasses } from "../redux/colorClasses/slice";
 import { addWinToStats } from "../redux/stats/slice";
 import { defineAvailableWords } from "../redux/wordLength/slice";
+import { setCorrectWord } from "../redux/correctWord/slice";
 
 import { DICTIONARY } from "../../dictionary2300";
 // =============================================================================
@@ -22,25 +23,15 @@ export function GameBoard() {
     const colorClassesAll = useSelector((state) => state.colorClasses);
 
     const correctWord = useSelector((state) => state?.correctWord);
+    const availableWords = useSelector(
+        (state) => state.wordLength?.availableWords
+    );
 
     // const newSecretWord = useSelector((state) => state.onePlayer.secretWord);
     console.log(`correctWord`, correctWord);
-    // =========================================================================
-    // --- UPDATES INDEX CURR ROW
-    useEffect(() => {
-        checkForWin();
-        allGameRows[0] &&
-            allGameRows[0][0] &&
-            wordEval(allGameRows[indexCurrRow], indexCurrRow);
-        setIndexCurrRow(allGameRows.filter((row) => !!row[0]).length);
-    }, [allGameRows]);
 
     // =========================================================================
-    // --- RENDER BOARD WITH SET WORD LENGTH // TODO -- disable change while in game --> OR == end game if thats the case -- confirmation scr
-    useEffect(() => {
-        dispatch(fillAllGameRows(wordLength));
-        filterAvaliableWords();
-    }, [wordLength]);
+    // FUNCTIONS ETC
     // =========================================================================
     // --- CHECK FOR WIN
     function checkForWin() {
@@ -99,6 +90,31 @@ export function GameBoard() {
         dispatch(addColorClasses(colorClasses));
     }
     // =========================================================================
+    // USE EFFECTS
+    // =========================================================================
+    // RANDOM CORRECT WORD
+    useEffect(() => {
+        const randomNum = Math.floor(Math.random() * availableWords.length);
+        availableWords[0] &&
+            dispatch(setCorrectWord(availableWords[randomNum]));
+    }, [availableWords]);
+    // =========================================================================
+    // --- UPDATES INDEX CURR ROW
+    useEffect(() => {
+        checkForWin();
+        allGameRows[0] &&
+            allGameRows[0][0] &&
+            wordEval(allGameRows[indexCurrRow], indexCurrRow);
+        setIndexCurrRow(allGameRows.filter((row) => !!row[0]).length);
+    }, [allGameRows]);
+
+    // =========================================================================
+    // --- RENDER BOARD WITH SET WORD LENGTH // TODO -- disable change while in game --> OR == end game if thats the case -- confirmation scr
+    useEffect(() => {
+        dispatch(fillAllGameRows(wordLength));
+        filterAvaliableWords();
+    }, [wordLength]);
+    
     //// ============================================================================================================ //
     //// ============================================================================================================ //
     return (
