@@ -283,7 +283,7 @@ header.main {
     font-size: var(--sq-font-size);
 }
 
-.endgame-msg {
+.board-msg {
     position: absolute;
     top: 50%;
     right: 50%;

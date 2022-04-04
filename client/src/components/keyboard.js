@@ -21,12 +21,15 @@ export function Keyboard() {
     const [correct, setCorrect] = useState([]);
     const [present, setPresent] = useState([]);
     const [absent, setAbsent] = useState([]);
+    const [notAWord, setNotAWord] = useState(false);
 
     const wordLength = useSelector((state) => state.wordLength.length);
     const currRow = useSelector((state) => state.currRow);
     const allGameRows = useSelector((state) => state.allGameRows);
-    const availableWords = useSelector((state) => state.wordLength.availableWords);
-    
+    const availableWords = useSelector(
+        (state) => state.wordLength?.availableWords
+    );
+
     const correctWord = useSelector(
         (state) => state.correctWord[0] && state.correctWord
     ) || ["W", "O", "R", "D", "L"]; //!-- placeholder
@@ -42,6 +45,13 @@ export function Keyboard() {
     useEffect(() => {
         setIndexCurrRow(allGameRows.filter((row) => !!row[0]).length);
     }, [allGameRows]);
+
+    // =========================================================================
+    // VALIDATE WORD
+    const validateCurrRow = () =>
+        currRow.length === wordLength &&
+            (availableWords.includes(currRow.join("").toLowerCase()) ||
+        setNotAWord(true));
 
     // =========================================================================
     // COLOR CLASS CONDITIONAL RENDERING
@@ -85,6 +95,7 @@ export function Keyboard() {
     // =========================================================================
     // CLICK HANDLER -- UPDATE CURR ROW // TODO -- add keypress
     const handleClick = ({ target }) => {
+        setNotAWord(false);
         const keyPressed = target.dataset.key;
         if (indexCurrRow >= allGameRows.length) {
             return console.log("GAME IS ALREADY FINISHED");
@@ -92,7 +103,7 @@ export function Keyboard() {
         if (keyPressed === "del") {
             currRow.length > 0 && dispatch(deleteLetterInRow());
         } else if (keyPressed === "enter") {
-            currRow.length === wordLength &&
+            validateCurrRow() &&
                 (dispatch(submitCurrRowToAllRows(currRow, indexCurrRow)),
                 dispatch(resetRow(indexCurrRow)),
                 storeKeyStatus(currRow));
@@ -118,6 +129,7 @@ export function Keyboard() {
                     ))}
                 </div>
             ))}
+            {notAWord && <div className="board-msg">Not a word!</div>}
         </section>
     );
 }

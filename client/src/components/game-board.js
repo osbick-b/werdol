@@ -136,7 +136,7 @@ export function GameBoard() {
                               ))}
                     </div>
                 ))}
-            {endgame && <div className="endgame-msg">{endgame}</div>}
+            {endgame && <div className="board-msg">{endgame}</div>}
         </section>
     );
 }
